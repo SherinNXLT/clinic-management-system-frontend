@@ -29,3 +29,7 @@ dist-ssr
 !.yarn/plugins
 !.yarn/sdks
 !.yarn/patches
+
+#files
+Refered.md
+Doccumentation.md
