@@ -1,11 +1,19 @@
-import NotFound from "./pages/NotFound"
+import { Route, Routes } from "react-router-dom"
+import Landing_Page from "./pages/landing_page/Landing_Page"
+import Dashboard from "./pages/dashborad/Dashboard"
+
 
 
 const App = () => {
   return (
-    <div className="bg-amber-100">
-      <NotFound />
-    </div>
+    <Routes>
+      {/* Landing Page */}
+      <Route path="/" element={<Landing_Page />} />
+      {/* Dashborad */}
+      <Route path="user">
+        <Route path="/user" element={<Dashboard />}/>
+      </Route>
+    </Routes>
   )
 }
 
