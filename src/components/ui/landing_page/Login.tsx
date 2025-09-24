@@ -3,10 +3,19 @@ import CommonInput from "../../common/CommonInput";
 import { FiLock, FiMail } from "react-icons/fi";
 import { validateSignIn } from "../../../utils/Validation";
 import { useNavigate } from "react-router-dom";
+import { BsBank2 } from "react-icons/bs";
+
 type CredentialInfo = {
     email: string;
     password: string;
 };
+
+type SignUpInfo = {
+    email: string;
+    clinic_name: string;
+    password: string;
+    c_password: string;
+}
 
 const Login = () => {
     const navigate = useNavigate();
@@ -15,8 +24,17 @@ const Login = () => {
         email: "",
         password: "",
     });
+
+    const [signUpInfo, setSignUpdInfo] = useState<SignUpInfo>({
+        email: "",
+        clinic_name: "",
+        password: "",
+        c_password: "",
+    })
+
     const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
     const [loginError, setLoginError] = useState<string>("");
+    const [isLogin, setIsLogin] = useState<boolean>(true);
 
 
 
@@ -41,96 +59,152 @@ const Login = () => {
         }
     };
 
-    const handleSignUp = () => {
-        console.log("Redirect to Sign Up page");
+    const handleNavigation = () => {
+        setIsLogin(!isLogin);
     };
-    return (
-        <div className="w-full h-screen flex justify-center items-center bg-gradient-to-r from-blue-50 to-violet-400/20 p-5">
-            <div className="w-full max-w-md p-8 rounded-2xl bg-white shadow-lg">
-                {/* Heading */}
-                <h2 className="text-3xl font-bold text-gray-800 text-center mb-2">Sign In</h2>
-                <p className="text-gray-500 text-center text-sm mb-6">
-                    New here?{" "}
-                    <span
-                        className="text-blue-600 cursor-pointer font-medium active:scale-x-95 hover:underline"
-                        onClick={handleSignUp}
-                    >
-                        Sign Up
-                    </span>
-                </p>
 
-                {/* Form */}
-                <form onSubmit={handleSignIn} autoComplete="off" className="space-y-4">
-                    {/* Email */}
+    return (
+        <div className="w-full h-screen flex flex-col justify-center items-center bg-gradient-to-r from-blue-50 to-violet-50 p-5">
+            {/* Heading */}
+            <div className="flex flex-col items-center mb-6">
+                <BsBank2 size={50} className={`${isLogin ? "text-blue-600":"text-green-600"} transition-all duration-700 mb-2`} />
+                <h2 className="text-3xl font-bold text-gray-800 text-center">
+                    Clinic Management System
+                </h2>
+            </div>
+            <div className="relative w-full max-w-xl p-8 rounded-3xl bg-white shadow-xl overflow-hidden transition-all duration-700 ease-in-out h-[550px]">
+
+                {/* Toggle Button */}
+                <div className="flex justify-center ">
+                    <div className="flex bg-gray-200 rounded-full w-56 relative">
+                        {/* Sliding Indicator */}
+                        <div
+                            className={`absolute  top-0 left-0 w-1/2 h-full  rounded-full shadow-md transition-all duration-300 ${isLogin ? "translate-x-full bg-blue-600" : "bg-green-600"
+                                }`}
+                        ></div>
+
+                        {/* Buttons */}
+                        <button
+                            onClick={() => setIsLogin(false)}
+                            className={`w-1/2 py-2 text-sm font-medium rounded-full z-50 cursor-pointer transition-colors duration-300 ${!isLogin ? "text-white" : "text-gray-700"
+                                }`}
+                        >
+                            Sign Up
+                        </button>
+                        <button
+                            onClick={() => setIsLogin(true)}
+                            className={`w-1/2 py-2 text-sm font-medium rounded-full z-50 cursor-pointer transition-colors duration-300 ${isLogin ? "text-white" : "text-gray-700"
+                                }`}
+                        >
+                            Sign In
+                        </button>
+                    </div>
+                </div>
+                {/* Sign In Form */}
+                <form
+                    onSubmit={handleSignIn}
+                    autoComplete="off"
+                    className={`absolute top-15 p-8 left-0 w-full transition-all duration-700 ease-in-out ${isLogin ? "translate-x-0 opacity-100 z-1" : "translate-x-full opacity-0 z-0"
+                        } space-y-4`}
+                >
+                    <h2 className="text-xl font-bold text-gray-800 text-center mb-4">Sign In</h2>
                     <CommonInput
                         label="Email"
                         type="email"
                         value={credentialInfo.email}
                         placeholder="you@example.com"
-                        onChange={(e) => { setCredentialInfo({ ...credentialInfo, email: e.target.value }), setLoginError("")}}
+                        onChange={(e) => {
+                            setCredentialInfo({ ...credentialInfo, email: e.target.value });
+                            setLoginError("");
+                        }}
                         required
-                        icon={<FiMail />} // 👈 email icon
-                        error={errors.email} // 👈🏻 error message Email
+                        icon={<FiMail />}
+                        error={errors.email}
                     />
-
-                    {/* Password */}
                     <CommonInput
                         label="Password"
                         type="password"
                         value={credentialInfo.password}
                         placeholder="********"
                         autoComplete="new-password"
-                        onChange={(e) =>{setCredentialInfo({ ...credentialInfo, password: e.target.value }), setLoginError("")}}
+                        onChange={(e) => {
+                            setCredentialInfo({ ...credentialInfo, password: e.target.value });
+                            setLoginError("");
+                        }}
                         required
-                        icon={<FiLock />} // 👈 lock icon
-                        error={errors.password} // 👈🏻 error message Password
+                        icon={<FiLock />}
+                        error={errors.password}
                     />
 
-                    {/* Forgot password */}
                     <div className="flex justify-end">
-                        <button
-                            type="button"
-                            className="text-sm cursor-pointer text-blue-600 hover:underline active:scale-x-95"
-                        >
+                        <button type="button" className="text-sm text-blue-600 hover:underline">
                             Forgot Password?
                         </button>
                     </div>
-
-                    {loginError && (
-                        <p className="text-sm text-red-500 text-center mb-2">
-                            {loginError}
-                        </p>
-                    )}
-
-                    {/* Submit button */}
+                    {loginError && <p className="text-sm text-red-500 text-center">{loginError}</p>}
                     <button
                         type="submit"
-                        className="w-full cursor-pointer bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition"
+                        className="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white py-2 rounded-lg font-medium shadow-md hover:scale-105 transition transform"
                     >
                         Sign In
                     </button>
                 </form>
 
-                {/* Divider */}
-                <div className="my-6 flex items-center">
-                    <hr className="flex-1 border-gray-300" />
-                    <span className="px-2 text-sm text-gray-400">or</span>
-                    <hr className="flex-1 border-gray-300" />
-                </div>
-
-                {/* Social Login */}
-                <button
-                    type="button"
-                    className="w-full cursor-pointer flex items-center justify-center gap-2 border rounded-lg py-2 hover:bg-gray-50 transition"
+                {/* Sign Up Form */}
+                <form
+                    autoComplete="off"
+                    className={`absolute top-15 p-8 left-0 w-full transition-all duration-700 ease-in-out ${!isLogin ? "translate-x-0 opacity-100 z-20" : "-translate-x-full opacity-0 z-0"
+                        } space-y-4`}
                 >
-                    <img
-                        src="https://www.svgrepo.com/show/355037/google.svg"
-                        alt="Google"
-                        className="w-5 h-5"
+                    <h2 className="text-xl font-bold text-gray-800 text-center mb-4">Sign Up</h2>
+                    <CommonInput
+                        label="Clinic Name"
+                        type="text"
+                        value={signUpInfo.clinic_name}
+                        placeholder="Sample Clinic"
+                        onChange={(e) => setSignUpdInfo({ ...signUpInfo, clinic_name: e.target.value })}
+                        required
+                        icon={<FiMail />}
                     />
-                    Continue with Google
-                </button>
+                    <CommonInput
+                        label="Email"
+                        type="email"
+                        value={signUpInfo.email}
+                        placeholder="you@example.com"
+                        onChange={(e) => setSignUpdInfo({ ...signUpInfo, email: e.target.value })}
+                        required
+                        icon={<FiMail />}
+                    />
+                    <CommonInput
+                        label="Password"
+                        type="password"
+                        value={signUpInfo.password}
+                        placeholder="********"
+                        onChange={(e) => setSignUpdInfo({ ...signUpInfo, password: e.target.value })}
+                        required
+                        icon={<FiLock />}
+                    />
+                    <CommonInput
+                        label="Confirm Password"
+                        type="password"
+                        value={signUpInfo.c_password}
+                        placeholder="********"
+                        autoComplete="new-password"
+                        onChange={(e) => setSignUpdInfo({ ...signUpInfo, c_password: e.target.value })}
+                        required
+                        icon={<FiLock />}
+                    />
+                    <button
+                        type="submit"
+                        className="w-full bg-gradient-to-r from-green-600 to-green-500 text-white py-2 rounded-lg font-medium shadow-md hover:scale-105 transition transform"
+                    >
+                        Sign Up
+                    </button>
+                </form>
             </div>
+
+
+
         </div>
     )
 }
