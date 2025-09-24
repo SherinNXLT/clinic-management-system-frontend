@@ -4,6 +4,7 @@ import { FiLock, FiMail } from "react-icons/fi";
 import { validateSignIn } from "../../../utils/Validation";
 import { useNavigate } from "react-router-dom";
 import { BsBank2 } from "react-icons/bs";
+import { FaUser } from "react-icons/fa";
 
 type CredentialInfo = {
     email: string;
@@ -59,16 +60,17 @@ const Login = () => {
         }
     };
 
-    const handleNavigation = () => {
-        setIsLogin(!isLogin);
-    };
-
     return (
         <div className="w-full h-screen flex flex-col justify-center items-center bg-gradient-to-r from-blue-50 to-violet-50 p-5">
             {/* Heading */}
             <div className="flex flex-col items-center mb-6">
-                <BsBank2 size={50} className={`${isLogin ? "text-blue-600":"text-green-600"} transition-all duration-700 mb-2`} />
-                <h2 className="text-3xl font-bold text-gray-800 text-center">
+                <div
+                    className={`w-12 h-12 mb-2 transition-all duration-1000 ${isLogin ? "bg-gradient-to-r from-blue-600 to-green-600" : "bg-gradient-to-r from-green-600 to-blue-500"
+                        } text-transparent rounded-full flex items-center justify-center`}
+                >
+                    <BsBank2 size={50} className="fill-current" />
+                </div>
+                <h2 className={`text-2xl md:text-3xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r  from-blue-500 to-green-600`}>
                     Clinic Management System
                 </h2>
             </div>
@@ -164,7 +166,7 @@ const Login = () => {
                         placeholder="Sample Clinic"
                         onChange={(e) => setSignUpdInfo({ ...signUpInfo, clinic_name: e.target.value })}
                         required
-                        icon={<FiMail />}
+                        icon={<FaUser />}
                     />
                     <CommonInput
                         label="Email"
