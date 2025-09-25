@@ -20,7 +20,7 @@ const CommonMenu: React.FC = () => {
       {/* Mobile Trigger */}
       {isMobile && (
         <button
-          className="fixed top-4 left-4 z-50 p-2 rounded-md bg-white shadow-md"
+          className="fixed top-4 right-4 z-50 p-1 rounded-md bg-white shadow-md"
           onClick={() => setIsMobileOpen((prev) => !prev)}
           aria-label="Toggle menu"
         >
@@ -41,7 +41,7 @@ const CommonMenu: React.FC = () => {
         className={`
           fixed lg:static top-0 left-0 z-50 h-screen overflow-hidden bg-white shadow-md flex flex-col
           transition-all duration-500 ease-in-out
-          ${isMobile ? (isMobileOpen ? "w-[240px]" : "w-[0]") : isCollapsed ? "lg:w-[64px]" : "lg:w-[240px]"}
+          ${isMobile ? (isMobileOpen ? "w-full" : "w-[0]") : isCollapsed ? "lg:w-[64px]" : "lg:w-[240px]"}
         `}
       >
         {/* Header */}
@@ -54,7 +54,7 @@ const CommonMenu: React.FC = () => {
           >
             <Shield className="text-blue-500 shrink-0" size={28} />
             <h2
-              className={`text-lg font-bold overflow-hidden pl-2 whitespace-nowrap hidden lg:block transition-opacity duration-300 ${
+              className={`text-lg font-bold overflow-hidden pl-2 whitespace-nowrap lg:block transition-opacity duration-300 ${
                 isCollapsed ? "opacity-0 w-0" : "opacity-100"
               }`}
             >

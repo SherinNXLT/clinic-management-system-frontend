@@ -1,4 +1,4 @@
-import { LayoutDashboard, Users, Settings } from "lucide-react";
+import { LayoutDashboard, Users, Settings, LogOut } from "lucide-react";
 import type { MenuItem } from "../types/menu";
 
 export const superAdminMenu: MenuItem[] = [
@@ -16,5 +16,10 @@ export const superAdminMenu: MenuItem[] = [
     label: "Settings",
     icon: Settings,
     path: "/settings",
+  },
+  {
+    label: "SignOut",
+    icon: LogOut,
+    path: "/",
   },
 ];
