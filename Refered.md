@@ -36,3 +36,7 @@ NB: Modify vite.config.ts
 
 <!-- Toast Provider -->
 yarn add react-hot-toast
+
+<!-- React icons and lucide-react -->
+yarn add lucide-react react-icons
+
