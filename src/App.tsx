@@ -10,8 +10,8 @@ const App = () => {
       {/* Landing Page */}
       <Route path="/" element={<Landing_Page />} />
       {/* Dashborad */}
-      <Route path="user">
-        <Route path="/user" element={<Dashboard />}/>
+      <Route path="clinic-system">
+        <Route path="/clinic-system" element={<Dashboard />}/>
       </Route>
     </Routes>
   )

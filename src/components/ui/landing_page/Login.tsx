@@ -40,7 +40,7 @@ const Login = () => {
         // Add your login logic here
         if (credentialInfo.email === "sample@mail.com" && credentialInfo.password === "123456") {
             setLoginError("");
-            navigate("/user")
+            navigate("/clinic-system")
         } else {
             setCredentialInfo({ email: "", password: "", isCheck: false });
             setLoginError("Invalid email or password"); // professional error message

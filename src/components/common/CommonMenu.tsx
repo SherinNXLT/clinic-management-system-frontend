@@ -1,36 +1,83 @@
-import { Shield} from "lucide-react";
-import { useState } from "react";
+import { Shield, X } from "lucide-react";
+import { useState, useEffect } from "react";
 import SuperAdmin from "./menus/SuperAdmin";
 
 const CommonMenu: React.FC = () => {
-  const [openWeb, setOpenWeb] = useState<boolean>(true);
+  const [isCollapsed, setIsCollapsed] = useState(false); // Desktop collapse
+  const [isMobileOpen, setIsMobileOpen] = useState(false); // Mobile sidebar
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect screen size (mobile vs desktop)
+  useEffect(() => {
+    const checkScreen = () => setIsMobile(window.innerWidth < 1024);
+    checkScreen();
+    window.addEventListener("resize", checkScreen);
+    return () => window.removeEventListener("resize", checkScreen);
+  }, []);
 
   return (
-    <div
-      className={`${
-        openWeb ? "w-[250px]" : "w-[50px]"
-      } bg-white shadow-md h-screen flex flex-col  transition-all duration-700 ease-in-out`}
-    >
-      {/* Logo / Toggle */}
-      <div onClick={() => setOpenWeb(!openWeb)} className={`cursor-pointer flex items-center p-4 mb-6 transition-border duration-700 `}>
-        <Shield
-          className="text-blue-500 shrink-0"
-          size={28}
-          strokeWidth={2}
-        />
-        <h2
-          className={`text-lg font-bold pl-2 whitespace-nowrap transition-opacity duration-700 ${
-            openWeb ? "opacity-100" : "opacity-0"
-          }`}
+    <>
+      {/* Mobile Trigger */}
+      {isMobile && (
+        <button
+          className="fixed top-4 left-4 z-50 p-2 rounded-md bg-white shadow-md"
+          onClick={() => setIsMobileOpen((prev) => !prev)}
+          aria-label="Toggle menu"
         >
-          Clinic System
-        </h2>
-      </div>
-      <div className={`w-full ${openWeb?"border-b-1":"border-none"}`}></div>
+          <Shield className="text-blue-500" size={24} />
+        </button>
+      )}
 
-      {/* Menu Items */}
-      <SuperAdmin openWeb={openWeb} />
-    </div>
+      {/* Mobile Overlay */}
+      {isMobile && isMobileOpen && (
+        <div
+          className="fixed inset-0 bg-black/40 z-40"
+          onClick={() => setIsMobileOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside
+        className={`
+          fixed lg:static top-0 left-0 z-50 h-screen overflow-hidden bg-white shadow-md flex flex-col
+          transition-all duration-500 ease-in-out
+          ${isMobile ? (isMobileOpen ? "w-[240px]" : "w-[0]") : isCollapsed ? "lg:w-[64px]" : "lg:w-[240px]"}
+        `}
+      >
+        {/* Header */}
+        <div className="flex overflow-hidden items-center justify-between p-4 border-b">
+          <div
+            className="flex items-center cursor-pointer"
+            onClick={() =>
+              isMobile ? setIsMobileOpen((prev) => !prev) : setIsCollapsed((prev) => !prev)
+            }
+          >
+            <Shield className="text-blue-500 shrink-0" size={28} />
+            <h2
+              className={`text-lg font-bold overflow-hidden pl-2 whitespace-nowrap hidden lg:block transition-opacity duration-300 ${
+                isCollapsed ? "opacity-0 w-0" : "opacity-100"
+              }`}
+            >
+              Clinic System
+            </h2>
+          </div>
+
+          {/* Close for Mobile */}
+          {isMobile && isMobileOpen && (
+            <button
+              className="lg:hidden"
+              onClick={() => setIsMobileOpen(false)}
+              aria-label="Close menu"
+            >
+              <X size={24} />
+            </button>
+          )}
+        </div>
+
+        {/* Menu */}
+        <SuperAdmin expanded={isMobile ? isMobileOpen : !isCollapsed} />
+      </aside>
+    </>
   );
 };
 
