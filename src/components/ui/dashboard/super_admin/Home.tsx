@@ -2,7 +2,7 @@
 
 const Home:React.FC = () => {
   return (
-    <div className="w-full bg-red-300">Home</div>
+    <div className="w-full p-5">Home</div>
   )
 }
 
