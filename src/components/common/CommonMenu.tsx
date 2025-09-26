@@ -14,16 +14,16 @@ const CommonMenu: React.FC = () => {
     <div
       className={`${
         isOpen ? "w-[90%] md:w-[20%]" : "w-0"
-      } fixed left-0 md:relative  min-h-screen transition-all duration-500  bg-white shadow-[4px_0_5px_#012f7563]`}
+      } fixed left-0 md:relative  min-h-screen transition-all duration-500  bg-white shadow-[4px_0_5px_#91b8f380]`}
     >
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="absolute -right-5 top-0 bg-white cursor-pointer rounded-lg shadow-md"
+        className="absolute -right-5 top-0 bg-white cursor-pointer rounded-full shadow-md"
       >
         {isOpen ? (
-          <ChevronLeft strokeWidth={2.25} />
+          <ChevronLeft className="text-blue-800" strokeWidth={3} />
         ) : (
-          <ChevronRight strokeWidth={2.25} />
+          <ChevronRight className="text-blue-800" strokeWidth={3} />
         )}
       </button>
       {/* Logo */}
