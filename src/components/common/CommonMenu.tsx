@@ -14,7 +14,7 @@ const CommonMenu: React.FC = () => {
     <div
       className={`${
         isOpen ? "w-[90%] md:w-[20%]" : "w-0"
-      } fixed left-0 md:relative  min-h-screen transition-all duration-500  bg-white`}
+      } fixed left-0 md:relative  min-h-screen transition-all duration-500  bg-white shadow-[4px_0_5px_#012f7563]`}
     >
       <button
         onClick={() => setIsOpen(!isOpen)}
