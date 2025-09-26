@@ -14,7 +14,7 @@ const CommonMenu: React.FC = () => {
     <div
       className={`${
         isOpen ? "w-[90%] md:w-[20%]" : "w-0"
-      } fixed left-0 md:relative  min-h-screen transition-all duration-500  bg-white shadow-[4px_0_5px_#91b8f380]`}
+      } fixed left-0 md:relative min-h-[calc(100vh - 5vh)] transition-all duration-500  bg-white shadow-[4px_0_5px_#91b8f380]`}
     >
       <button
         onClick={() => setIsOpen(!isOpen)}
@@ -33,7 +33,7 @@ const CommonMenu: React.FC = () => {
       </div>
       <p className="bg-black/20 p-[1px]"></p>
       {/* menus */}
-      <div className="w-full overflow-hidden">
+      <div className="w-full h-[500px] overflow-y-auto scroll-smooth scroll-content">
         <SuperAdmin />
       </div>
     </div>

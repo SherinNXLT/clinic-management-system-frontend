@@ -30,3 +30,12 @@
   opacity: 1;
 }
 
+/* disable the scroll indicator */
+.scroll-content{
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+.scroll-content::-webkit-scrollbar {
+  display: none;             /* Chrome, Safari */
+}
