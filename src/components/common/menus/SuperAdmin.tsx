@@ -14,7 +14,7 @@ import { useState } from "react";
 const SuperAdmin: React.FC = () => {
   const [dropOpen, setDropOpen] = useState(false);
   return (
-    <div className="w-full flex flex-col justify-start gap-y-2 p-1 overflow-hidden">
+    <div className="w-full overflow-y-auto flex flex-col justify-start gap-y-1 p-1 overflow-hidden">
       <div className="w-full p-2 cursor-pointer text-black/80 flex items-center justify-start hover:shadow-[0_3px_3px_var(--bkShadow)]">
         <LayoutDashboard className="h-10" strokeWidth={2} />
         <p className="text-md font-semibold pl-2">Dashboard</p>
