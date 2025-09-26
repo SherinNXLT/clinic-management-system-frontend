@@ -18,7 +18,7 @@ const CommonMenu: React.FC = () => {
     >
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="absolute -right-5 top-0 bg-white cursor-pointer rounded-full shadow-md"
+        className="absolute -right-5 top-5 bg-white cursor-pointer rounded-full shadow-md"
       >
         {isOpen ? (
           <ChevronLeft className="text-blue-800" strokeWidth={3} />
